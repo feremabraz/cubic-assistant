@@ -2,6 +2,8 @@
 
 A 3D interactive AI assistant built with Three.js and React Three Fiber, featuring an cubic character that gives voice responses to user input.
 
+![Preview](README.png)
+
 ## Features
 
 - Interactive 3D cubic character entirely modeled in code, including animations
