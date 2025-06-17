@@ -10,12 +10,24 @@ const openai = createOpenAI({
 });
 
 async function getCVContent(): Promise<string> {
+	let cvPath = "";
 	try {
-		const cvPath = path.join(process.cwd(), "public", "CV_Fernando_Braz.txt");
+		if (process.env.VERCEL_ENV) {
+			// Running on Vercel
+			cvPath = path.join(process.cwd(), "CV_Fernando_Braz.txt");
+		} else {
+			// Running locally
+			cvPath = path.join(process.cwd(), "public", "CV_Fernando_Braz.txt");
+		}
 		const cvContent = await fs.readFile(cvPath, "utf-8");
 		return cvContent;
 	} catch (error) {
-		console.error("Error reading CV file:", error);
+		console.error(
+			"Error reading CV file:",
+			error,
+			"Attempted CV Path:",
+			cvPath,
+		);
 		return "Error: Could not load CV information. Please check if the file exists and the server has read permissions.";
 	}
 }
