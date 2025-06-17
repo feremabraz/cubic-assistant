@@ -10,6 +10,11 @@ const nextConfig = {
 	images: {
 		unoptimized: true,
 	},
+	experimental: {
+		outputFileTracingIncludes: {
+			"/app/**": ["./public/CV_Fernando_Braz.txt"],
+		},
+	},
 };
 
 export default nextConfig;
