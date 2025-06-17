@@ -1,5 +1,7 @@
 "use client";
 
+import { generateCvResponse } from "@/app/actions/generate-cv-response";
+import { generateSpeechDirect } from "@/app/actions/generate-speech-direct";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,20 +14,6 @@ import { useAtom } from "jotai";
 import { Bot, Send } from "lucide-react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
-import { generateSpeechDirect } from "../actions/generate-speech-direct";
-
-const RESPONSES = [
-	"I specialize in crafting performant solutions that bridge frontend experiences with backend systems.",
-	"You might find our blog post on React 19 Server Components helpful for understanding this implementation.",
-	"This project demonstrates the power of Jotai for state management across complex 3D applications.",
-	"Consider exploring our documentation on Three.js integration with React for more insights.",
-	"The character animation system uses a custom state machine powered by Jotai atoms.",
-	"Our team has written extensively about WebGL performance optimization techniques.",
-	"The audio synthesis is handled through OpenAI's TTS API with custom voice parameters.",
-	"Check out our latest blog post about Tailwind v4 integration with 3D interfaces.",
-	"This implementation leverages React Query for efficient data fetching and caching.",
-	"We've documented our approach to responsive 3D design in our technical blog.",
-];
 
 function rephraseResponse(originalResponse: string, query: string): string {
 	const prefixes = [
@@ -55,93 +43,11 @@ function rephraseResponse(originalResponse: string, query: string): string {
 	return `${prefix}${originalResponse}${suffix}`;
 }
 
-function selectResponse(query: string): string {
-	const normalizedQuery = query.toLowerCase().trim();
-
-	if (
-		normalizedQuery.includes("what are we") ||
-		normalizedQuery.includes("who are you") ||
-		normalizedQuery.includes("what do you do")
-	) {
-		return RESPONSES[0];
-	}
-
-	// For other queries, select a relevant response
-	let responseIndex = 1; // Default to the second response
-
-	if (
-		normalizedQuery.includes("react") ||
-		normalizedQuery.includes("component")
-	) {
-		responseIndex = 1;
-	} else if (
-		normalizedQuery.includes("state") ||
-		normalizedQuery.includes("jotai")
-	) {
-		responseIndex = 2;
-	} else if (
-		normalizedQuery.includes("three") ||
-		normalizedQuery.includes("3d")
-	) {
-		responseIndex = 3;
-	} else if (
-		normalizedQuery.includes("animation") ||
-		normalizedQuery.includes("character")
-	) {
-		responseIndex = 4;
-	} else if (
-		normalizedQuery.includes("performance") ||
-		normalizedQuery.includes("webgl")
-	) {
-		responseIndex = 5;
-	} else if (
-		normalizedQuery.includes("audio") ||
-		normalizedQuery.includes("speech")
-	) {
-		responseIndex = 6;
-	} else if (
-		normalizedQuery.includes("tailwind") ||
-		normalizedQuery.includes("css")
-	) {
-		responseIndex = 7;
-	} else if (
-		normalizedQuery.includes("data") ||
-		normalizedQuery.includes("fetch")
-	) {
-		responseIndex = 8;
-	} else if (
-		normalizedQuery.includes("design") ||
-		normalizedQuery.includes("responsive")
-	) {
-		responseIndex = 9;
-	} else {
-		// If no specific match, select a random response (excluding the first one)
-		responseIndex = 1 + Math.floor(Math.random() * (RESPONSES.length - 1));
-	}
-
-	return rephraseResponse(RESPONSES[responseIndex], query);
-}
-
-// Helper function to generate WebVTT caption from text
-function generateCaptionUrl(text: string): string {
-	// Create a simple WebVTT caption file
-	const vttContent = `WEBVTT
-
-1
-00:00:00.000 --> 00:02:00.000
-${text}`;
-
-	// Create a blob and URL for the VTT content
-	const blob = new Blob([vttContent], { type: "text/vtt" });
-	return URL.createObjectURL(blob);
-}
-
 export function AIAssistantCard() {
 	const [query, setQuery] = useState("");
 	const [response, setResponse] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [audioUrl, setAudioUrl] = useState<string | null>(null);
-	const [captionUrl, setCaptionUrl] = useState<string | null>(null);
 	const [isTalking, setIsTalking] = useAtom(isTalkingAtom);
 	const [isAIThinking, setIsAIThinking] = useAtom(isAIThinkingAtom);
 	const [error, setError] = useState<string | null>(null);
@@ -178,13 +84,9 @@ export function AIAssistantCard() {
 			if (audioUrl && !audioUrl.startsWith("data:")) {
 				URL.revokeObjectURL(audioUrl);
 			}
-			if (captionUrl) {
-				URL.revokeObjectURL(captionUrl);
-			}
 		};
-	}, [audioUrl, captionUrl, setIsTalking]);
+	}, [audioUrl, setIsTalking]);
 
-	// For testing: toggle thinking state when clicking on the card header
 	const toggleThinking = () => {
 		setIsAIThinking(!isAIThinking);
 		console.log("Manually toggled thinking state to:", !isAIThinking);
@@ -202,14 +104,15 @@ export function AIAssistantCard() {
 		setResponse(null); // Clear previous response
 
 		try {
-			// Generate a response based on the query
-			const aiResponse = selectResponse(query);
+			// Generate a response based on the query using the new server action
+			const rawCvResponse = await generateCvResponse(query);
+			const aiResponse = rephraseResponse(rawCvResponse, query); // Still rephrasing for now
 
 			// Show response
 			setResponse(aiResponse);
 
 			// Generate speech for the response
-			const speechResponse = await generateSpeechDirect(aiResponse, "nova");
+			const speechResponse = await generateSpeechDirect(aiResponse, "echo");
 
 			if (!speechResponse || !speechResponse.audioBase64) {
 				throw new Error("No audio data received from server");
@@ -220,10 +123,6 @@ export function AIAssistantCard() {
 			// Create a data URL directly
 			const dataUrl = `data:audio/mp3;base64,${audioBase64}`;
 			setAudioUrl(dataUrl);
-
-			// Generate caption URL from the response text
-			const captionDataUrl = generateCaptionUrl(aiResponse);
-			setCaptionUrl(captionDataUrl);
 
 			// Set the audio source and play
 			if (audioRef.current) {
@@ -250,8 +149,7 @@ export function AIAssistantCard() {
 			setError(
 				error instanceof Error ? error.message : "Failed to generate response",
 			);
-			setIsAIThinking(false); // Make sure to turn off thinking state on error
-			console.log("Setting thinking state to FALSE (error case)");
+			setIsAIThinking(false);
 		} finally {
 			setIsLoading(false);
 		}
@@ -304,18 +202,9 @@ export function AIAssistantCard() {
 					</Button>
 				</form>
 
-				{/* Hidden audio element with caption track for accessibility */}
+				{/* Hidden audio element */}
+				{/* biome-ignore lint/a11y/useMediaCaption: Not needed. */}
 				<audio ref={audioRef} className="hidden">
-					<track
-						kind="captions"
-						src={
-							captionUrl ||
-							"data:text/vtt,WEBVTT%0A%0A1%0A00:00:00.000%20--%3E%2000:02:00.000%0ANo%20audio%20playing"
-						}
-						label="English captions"
-						srcLang="en"
-						default
-					/>
 					Your browser does not support the audio element.
 				</audio>
 			</CardContent>

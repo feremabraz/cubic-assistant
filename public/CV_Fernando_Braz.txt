@@ -1,0 +1,227 @@
+Fernando Braz
+SENIOR
+
+SOFTWARE
+
+DEVELOPER
+
+PERSONAL SUMMARY
+I'm a versatile software developer with an affinity for Nest.js and Next.js. My focus is typically on full
+product development. I enjoy taking projects from concept to completion, utilizing my knowledge to
+create end-to-end solutions. My experience revolves around delivering comprehensive results, and I
+find the most fulfillment in roles where I can contribute across the entire product lifecycle.
+
+CONTACT INFO
+Rua Nova 413, Barroselas
+Viana do Castelo, Portugal
+Mobile: (+351) 912682012
+Email: hello@fernandobraz.online
+Website: www.fernandobraz.online
+
+PERSONAL DATA
+Born in 1987. Buenos Aires, Argentina.
+Dual nationality Argentinian - Portuguese.
+Legal residency and bank account in Portugal.
+All legal work requirements met.
+Progamming since 2003.
+More than 7 years of professional experience.
+
+GitHub: https://github.com/feremabraz
+
+SOFT SKILLS
+Emotional intelligence and empathy.
+Active listening.
+Conflict resolution & legal acumen,
+from a background in law.
+
+EDUCATION
+Abogacía e Ingeniería en Informática
+
+Universidad Nacional de la Matanza | 2005-2015
+
+Advanced coursework in Law (Abogacía) and Computer
+Engineering (Ingeniería en Informática).
+Experience combining legal and technical knowledge.
+Completed multiple relevant courses in both disciplines.
+
+LANGUAGES
+
+TECHNICAL ABILITIES BY PROJECT TIME
+
+FLAGSHIP EXAMPLE
+www.fernandobraz.online
+Next.js v15
+A project with all the bells and whistles of a modern Software-as-a-Service product, designed to allow a prospective client to request custom software development from an agency without any technical knowledge.
+
+UI controls where developed with Storybook.
+It is integrated with Stripe payments, in test mode right now (see the link for a credit card).
+The project is a monorepo containing a Next.js frontend with a Hono backend, and various shared packages for the API, auth, database, CMS, email sending and payments.
+Other prominent dependencies are Prisma ORM to interact with Supabase, Jotai for state management, Better Auth, Shadcn UI, Next Intl for internationalization, React Email to interact with the Plunk mail service.
+
+OTHER PROJECTS
+Unity C# Videogame & Next.js Software as a Service
+Independent Projects | 2023 to Febraury 2024
+Throughout 2023 and early 2024, I balanced personal projects with ongoing freelance work, focusing on skill
+enhancement and professional growth. My key initiatives included:
+1. Game Development (Early 2023)
+2. Interactive Educational Platform (Mid 2023)
+3. Freelance Agency Establishment (Late 2023)
+Main activities & technologies:
+Guided two Argentinian junior programmers to the completion of their SoyHenry course studies.
+Adapted the code for the “Game Creator 2” to use my own character controller & actions
+Bespoke actions programmed in C#
+Implemented UPixelator for distinctive visual aesthetics
+Conceptualized and built a modern interpretation of Microsoft Encarta
+Utilized Spline 3D for creating engaging, interactive environments
+Employed Poimandres' react-three-fiber for seamless 3D web integration
+Crafted 2D interactive experiences using Typescript/React with Excalibur.js
+Integrated AI-generated content via Vercel SDK for a dynamic user experience
+Impact:
+Increased client acquisition rate (7) by 70% in comparisson with in the first quarter of the previous year (4)
+by establishing a comprehensive solo agency framework for freelance work.
+Increased user engagement by 65% as measured by Vercel Analytics (baseline roughly 100s vs. 165)
+through the implementation of interactive 3D scenes using Spline 3D.
+
+Unity C# Developer & Blender 3D Artist
+Asset Production | April 2022 to December 2022
+After arriving in Portugal and getting my bank account here, I saw the opportunity to sell products as an
+independent thanks to Stripe, which is not available in Argentina. I produced a short set of assets in what I
+called "Gamekaiju" and got my sales via Discord communities. It consisted of a physics-based character
+controller that implemented a technique called "damped harmonic oscillators" that gave it a look close to
+modern Nintendo games, along with modular characters.
+The controller is still on my Github. The website is not online, but the design system I created for it (Next.js,
+Tailwind) is among my repositories too. A new installment of Gamekaiju is being worked on.
+Main activities & technologies:
+C#, Unity URP 2021 LTS, JetBrains Rider.
+Blender. Several Blender & Unity Extensions to create rigs and poses.
+Development of a character controller based on harmonic oscillators.
+Modular characters, male and female in multiple age groups, props, clothes and environment.
+Impact:
+Reduced character animation development time by 87% through pose interpolation, which means that only
+(2) key poses were produced and blended with an animation curve, instead of every keyframe (15).
+
+Veterinary CRM - Websat SRL
+Next.js Full Stack Developer
+
+| October 2021 to January 2022
+
+The owner wanted to get a CRM type product for the veterinary sector because he had connections in the
+sector and there was no modern alternative in our country. The functional requirements were easily obtained
+from a previous functional prototype, and I proceeded to implement one in Next.js (web) with a Tauri wrapper
+(for desktop), with the idea of introducing a PWA (for mobile) later, thus having a single code base.
+Unfortunately, the company's priorities changed and development stopped. The project used the layout
+offered by the wide range of Elastic UI v54 controls to structure the pages, similar to what is now found as
+EuiPageTemplate, with an EuiDataGrid that could be edited inline, leaving less frequently added information in
+pre-loaded form components ready to be overridden. Data was retrieved from Firebase on startup (some) and
+by accessing the appropriate path in the navigation. The first screen was basically the same structure as the
+introduction to the library documentation of that version, where multiple EuiCards with startup information
+replaced the page navigation/page layout, creating a dashboard with useful data for navigable routes, the
+cards being another way to navigate them. Multimedia content was shipped to Cloudinary for RAW file and
+video support.
+Main activities & technologies:
+Development of the whole product, from concept to release.
+Next.js, React, Node.js, ElasticUI, Easy-Peasy, Firebase, Cloudinary.
+Impact:
+Reduced initial loading time by 45% by implementing strategic data fetching from Firebase, improving the
+application's perceived performance (5.5s reduced to 3s).
+Improved data entry speed by 35% by implementing inline editing functionality in EuiDataGrid, streamlining
+the veterinary record-keeping process (6m per record to 4m).
+
+Realtor System – Multiple Realtors, Sold Individually
+React Native Developer | August 2020 to August 2021
+This was a project using React Native Expo and React Native Elements v2 as my UI toolkit. There was no auth
+flow nor app stores, as my plan was to periodically update their devices with a new APK. It was a CRUD over
+SQLite app with two lists provided by the long defunct "meliorence/react-native-snap-carousel" package at
+Home, which gave it a very nice look and feel. The first was a Tinder-like stacked list that was displayed if
+there were any consultations due by that date, and the second was a view of all the properties used to view
+and edit data. The latter had an associated checkbox group at the bottom for filtering and a text box for code
+searches. To create a new register, I set a "Use as Template" for the current property on the View & Edit page,
+which created a new one with the same data except for the photos and certain fields. Properties could be
+toggled as visible on/off so as not to clutter the home and brought back with the filter group.
+Main activities & technologies:
+Development of the whole product, from concept to release. Sold trough MercadoPago.
+React Native Expo, SQLite on Fly.io.
+Impact:
+Reduced app update time by 80% by utilizing direct APK updates instead of app store submissions (one
+week assuming no cancellations vs. 12 hours max).
+Improved user engagement through the implementation of a Tinder-like stacked list for consultations,
+resulting in more efficient task management.
+
+Real Estate CRM – CRM Marzo
+.NET Developer | March 2019 to September 2020
+During this period, I resumed my work with CRM Marzo, making adjustments to the user experience and
+marketing. It was a moment of reflection on business practices and marketing, during which I undertook
+active reading on the subject of enhancing the communication of a product's value proposition. I improved
+the brochures and added a refined dashboard to the home window. This is how the project got its final name
+"March". I prioritized sales above all else.
+Main activities & technologies:
+Product updates and adjustments. Sold trough PayPal.
+NET, WPF, MVVM, MahappsMetro, ServiceStack, LLBLGen, Entity Framework, SQL Server, Azure.
+Impact (when comparing mid 2019 with mid 2020):
+Boosted sales conversion rate by 55% by enhancing the product's value proposition communication
+through improved brochures and marketing materials.
+Increased market penetration by 70% in the target industry by refining the product's selling points.
+
+Calendly-like Web App – Calzado y Artesanías Calchaquís
+Node.js Developer | March 2018 to January 2019
+During my work with this Tucuman-based family-owned handcrafted footwear company, I chose the full
+AdonisJS stack, including its ORM and HTML engine, which was a very good choice at the time considering
+the case. The interface for the Pug-like rendering engine was achieved by adapting a Bulma CSS template I
+bought from Themeforest for the effect. The app consisted basically of the classic JWT registration flow that
+gave way to a Calendly-like interface, with which the prospect coordinated with this family group.
+Main activities & technologies:
+Development of the whole product, from concept to release.
+Adonis.js, REST, Node.js.
+Impact:
+Reduced customer service workload by 60% through the development of an automated scheduling system,
+freeing up staff time for other critical tasks.
+Improved user registration completion rate by a unkown amount, stimated being roughly by half, by
+implementing a streamlined registration flow, enhancing overall user acquisition.
+
+ASSETS AND GAMES
+In my spare time I like to write about game
+design, make assets in Blender, and then
+bring them to Unity to give them some life.
+
+Real Estate CRM – CRM Marzo
+.NET Developer | August 2016 to March 2018, July 2018 to January 2019
+This was my first paid freelance job. It came to me thanks to an acquaintance who referred me
+to his employer. I started working almost immediately after my college exams. It was a CRM for
+windows with a MahapsMetro interface with elementary real estate functionalities. Most of the
+difficulty of the work arose for me in dealing with MVVM. It took me a few non-successive
+months to produce it. The rest of the time I don't introduce here was sporadic support for
+almost two years, with some additional functionality added in the process.
+After the experience with Inmobiliaria Milani, I bought a licence for ServiceStack and LLBLGen
+Pro intending to improve my previous product with the best .NET technology and to make it
+available to a wider audience. I invested a few months watching Pluralsight courses, which
+weren't as good as I thought they would be, but finally I bought a course from a site I don't
+believe still exists, which gave me the right onion structure for my code. The biggest difference
+came from design choices, as this new product had a multi-tenant SQL database on Azure and
+several polymorphic fields. I sold one-year subscriptions with the help of my friend who had
+become a partner. It wasn't very profitable, but at least we stuck with it for two years.
+Main activities & technologies:
+First installment:
+Development of the whole product, from concept to release.
+.NET, WPF, MahappsMetro, MVVM, Entity Framework, SQL Server.
+Second installment:
+Product updates and adjustments.
+.NET, WPF, MVVM, MahappsMetro, ServiceStack, LLBLGen, Entity Framework, SQL Server, Azure.
+Impact:
+Increased real estate agent productivity by 40% through the development of a custom CRM with
+elementary real estate functionalities, streamlining daily operations.
+Reduced development time by 30% in the second installment by implementing ServiceStack and LLBLGen
+Pro, enabling faster feature implementation and bug fixes.
+
+Web Developer - Infinite Loop SRL
+ASP.NET & Classic ASP Developer | January 2008 to March 2011
+I was part of a company with fourteen employees. The team had four people working on ASP Classic for
+Xiosoft, an American company that made audio and video marketing web tools for small businesses, and two
+more working on ASP.NET for a chain of local retail stores. My time was divided between ASP Classic and
+ASP.NET. I worked on ASP Classic a few days a week and ASP.NET most of the time.
+Main activities & technologies:
+Bug fixes and problem prevention on a very old and large legacy ASP codebase.
+Provision of assistance to the main ASP.NET developer.
+ASP, JQuery, Bootstrap, Raw SQL, ASP.NET, Visual Studio.
+Impact:
+Reduced customer support tickets through proactive identification and resolution of potential issues.
+
