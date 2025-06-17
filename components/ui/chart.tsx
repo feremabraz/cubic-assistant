@@ -68,36 +68,62 @@ const ChartContainer = React.forwardRef<
 ChartContainer.displayName = "Chart";
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
-	const colorConfig = Object.entries(config).filter(
-		([_, config]) => config.theme || config.color,
-	);
+	const colorConfig = React.useMemo(() => {
+		return Object.entries(config).filter(
+			([/* key */ , itemConfig]) => itemConfig.theme || itemConfig.color,
+		);
+	}, [config]);
 
-	if (!colorConfig.length) {
-		return null;
-	}
+	React.useEffect(() => {
+		if (!colorConfig.length) {
+			return;
+		}
 
-	return (
-		<style
-			dangerouslySetInnerHTML={{
-				__html: Object.entries(THEMES)
-					.map(
-						([theme, prefix]) => `
+		const styleElementId = `chart-style-${id}`;
+		let styleElement = document.getElementById(
+			styleElementId,
+		) as HTMLStyleElement | null;
+
+		if (!styleElement) {
+			styleElement = document.createElement("style");
+			styleElement.id = styleElementId;
+			document.head.appendChild(styleElement);
+		}
+
+		const cssContent = Object.entries(THEMES)
+			.map(([theme, prefix]) => {
+				const themeSpecificStyles = colorConfig
+					.map(([key, itemConfig]) => {
+						const color =
+							itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+							itemConfig.color;
+						return color ? `  --color-${key}: ${color};` : null;
+					})
+					.filter(Boolean) // Remove null entries
+					.join("\n");
+
+				if (!themeSpecificStyles.trim()) return "";
+
+				return `
 ${prefix} [data-chart=${id}] {
-${colorConfig
-	.map(([key, itemConfig]) => {
-		const color =
-			itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-			itemConfig.color;
-		return color ? `  --color-${key}: ${color};` : null;
-	})
-	.join("\n")}
+${themeSpecificStyles}
 }
-`,
-					)
-					.join("\n"),
-			}}
-		/>
-	);
+`;
+			})
+			.filter(Boolean) // Remove empty theme blocks
+			.join("\n");
+
+		styleElement.innerHTML = cssContent;
+
+		return () => {
+			const el = document.getElementById(styleElementId);
+			if (el) {
+				el.remove();
+			}
+		};
+	}, [id, colorConfig]);
+
+	return null;
 };
 
 const ChartTooltip = RechartsPrimitive.Tooltip;

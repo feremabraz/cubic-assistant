@@ -13,7 +13,7 @@ import {
 	isTalkingAtom,
 	isWireframeAtom,
 	lookDirectionAtom,
-} from "@/lib/atoms";
+} from "@/store/atoms";
 import { Edges } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
@@ -276,8 +276,7 @@ export function IceCubeCharacter({
 	const head = useRef<Mesh>(null!);
 	// biome-ignore lint/style/noNonNullAssertion: These refs are guaranteed to be initialized in the Three.js render cycle
 	const neck = useRef<Mesh>(null!);
-	// biome-ignore lint/style/noNonNullAssertion: These refs are guaranteed to be initialized in the Three.js render cycle
-	const body = useRef<Mesh>(null!);
+	const body = useRef<Group | null>(null);
 	// biome-ignore lint/style/noNonNullAssertion: These refs are guaranteed to be initialized in the Three.js render cycle
 	const mouth = useRef<Mesh>(null!);
 	// biome-ignore lint/style/noNonNullAssertion: These refs are guaranteed to be initialized in the Three.js render cycle
@@ -380,7 +379,9 @@ export function IceCubeCharacter({
 			rightLeg.current.rotation.x = -legRotation;
 			leftArm.current.rotation.x = armRotation;
 			rightArm.current.rotation.x = -armRotation;
-			body.current.rotation.z = bodyRotation;
+			if (body.current) {
+				body.current.rotation.z = bodyRotation;
+			}
 
 			// Make sure the character bounces up and down while walking
 			group.current.position.y =
@@ -410,11 +411,13 @@ export function IceCubeCharacter({
 				0,
 				lerpFactor,
 			);
-			body.current.rotation.z = MathUtils.lerp(
-				body.current.rotation.z,
-				0,
-				lerpFactor,
-			);
+			if (body.current) {
+				body.current.rotation.z = MathUtils.lerp(
+					body.current.rotation.z,
+					0,
+					lerpFactor,
+				);
+			}
 			group.current.position.y = MathUtils.lerp(
 				group.current.position.y,
 				position[1],
@@ -438,11 +441,13 @@ export function IceCubeCharacter({
 			rightArm.current.rotation.x =
 				MathUtils.lerp(rightArm.current.rotation.x, 0, lerpFactor * 0.5) +
 				Math.sin(t * 2 + Math.PI) * 0.015;
-			body.current.rotation.z = MathUtils.lerp(
-				body.current.rotation.z,
-				0,
-				lerpFactor,
-			);
+			if (body.current) {
+				body.current.rotation.z = MathUtils.lerp(
+					body.current.rotation.z,
+					0,
+					lerpFactor,
+				);
+			}
 			group.current.position.y = position[1];
 		}
 
@@ -533,7 +538,8 @@ export function IceCubeCharacter({
 	};
 
 	const applyBodyPose = (state: BodyState, lerpFactor: number) => {
-		const applyBodyPartState = (part: Group, state: BodyPartState) => {
+		const applyBodyPartState = (part: Group | null, state: BodyPartState) => {
+			if (!part) return;
 			if (
 				bodyPose !== "walking" ||
 				(part !== leftLeg.current &&
@@ -716,20 +722,21 @@ export function IceCubeCharacter({
 			</mesh>
 
 			{/* Body */}
-			<mesh
-				ref={body}
-				position={[0, -0.05, 0]}
-				castShadow
-				geometry={bodyGeometry}
-			>
-				<meshStandardMaterial
-					color="#935a46"
-					roughness={0.8}
-					metalness={0.1}
-					wireframe={isWireframe}
-				/>
-				<Edges threshold={15} renderOrder={1} color="#000000" />
-			</mesh>
+			<group ref={body} position={[0, 0, 0]}>
+				<mesh
+					// position={[0, -0.05, 0]} // Position is now relative to the group
+					castShadow
+					geometry={bodyGeometry}
+				>
+					<meshStandardMaterial
+						color="#935a46"
+						roughness={0.8}
+						metalness={0.1}
+						wireframe={isWireframe}
+					/>
+					<Edges threshold={15} renderOrder={1} color="#000000" />
+				</mesh>
+			</group>
 
 			{/* Arms */}
 			<group ref={leftArm} position={[-0.65, 0.45, 0]}>

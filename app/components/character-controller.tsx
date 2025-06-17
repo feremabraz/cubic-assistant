@@ -1,6 +1,6 @@
 "use client";
 
-import { bodyPoseAtom, isWalkingAtom } from "@/lib/atoms";
+import { bodyPoseAtom, isWalkingAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 

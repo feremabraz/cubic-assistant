@@ -83,7 +83,7 @@ export function Gizmo({ size = 2, position = [0, 0, 0] }: GizmoProps) {
 				position={[0, 0.2, size / 2]}
 				color="blue"
 				fontSize={0.15}
-				anchorZ="center"
+				anchorX="center"
 				rotation={[0, Math.PI / 2, 0]}
 			>
 				Depth

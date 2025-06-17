@@ -1,7 +1,7 @@
 "use client";
 
 import { OTPInput, OTPInputContext } from "input-otp";
-import { Dot } from "lucide-react";
+
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -59,12 +59,17 @@ const InputOTPSlot = React.forwardRef<
 InputOTPSlot.displayName = "InputOTPSlot";
 
 const InputOTPSeparator = React.forwardRef<
-	React.ElementRef<"div">,
-	React.ComponentPropsWithoutRef<"div">
->(({ ...props }, ref) => (
-	<div ref={ref} role="separator" {...props}>
-		<Dot />
-	</div>
+	React.ElementRef<"hr">,
+	React.ComponentPropsWithoutRef<"hr">
+>(({ className, ...props }, ref) => (
+	<hr
+		ref={ref}
+		className={cn(
+			"mx-1 h-1 w-1 self-center rounded-full border-0 bg-muted-foreground",
+			className,
+		)}
+		{...props}
+	/>
 ));
 InputOTPSeparator.displayName = "InputOTPSeparator";
 

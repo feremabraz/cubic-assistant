@@ -1,6 +1,6 @@
 "use client";
 
-import { isAIThinkingAtom } from "@/lib/atoms";
+import { isAIThinkingAtom } from "@/store/atoms";
 import { useAtomValue } from "jotai";
 
 export function ThinkingIndicatorDebug() {

@@ -13,7 +13,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { isAIThinkingAtom, isTalkingAtom } from "@/lib/atoms";
+import { isAIThinkingAtom, isTalkingAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { Loader2, Send, Volume2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";

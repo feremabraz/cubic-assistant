@@ -17,13 +17,13 @@ function Measurement({
 	color = "white",
 	offset = [0, 0, 0],
 }: MeasurementProps) {
-	const lineGeometry = useMemo(() => {
-		const points = [
+	const linePoints = useMemo(
+		() => [
 			new THREE.Vector3(...start).add(new THREE.Vector3(...offset)),
 			new THREE.Vector3(...end).add(new THREE.Vector3(...offset)),
-		];
-		return new THREE.BufferGeometry().setFromPoints(points);
-	}, [start, end, offset]);
+		],
+		[start, end, offset],
+	);
 
 	const midpoint = useMemo(() => {
 		return new THREE.Vector3(
@@ -41,11 +41,9 @@ function Measurement({
 
 	return (
 		<>
-			<line geometry={lineGeometry}>
-				<lineBasicMaterial attach="material" color={color} linewidth={2} />
-			</line>
+			<Line points={linePoints} color={color} lineWidth={2} />
 			<Text
-				position={[midpoint.x, midpoint.y, midpoint.z]}
+				position={midpoint.toArray()}
 				fontSize={0.1}
 				color={color}
 				anchorX="center"

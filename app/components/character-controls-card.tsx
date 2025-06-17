@@ -15,7 +15,7 @@ import {
 	pointRightAtom,
 	reachFrontAtom,
 	stretchAtom,
-} from "@/lib/atoms";
+} from "@/store/atoms";
 import { useAtom } from "jotai";
 
 export function CharacterControlsCard() {

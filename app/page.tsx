@@ -6,7 +6,7 @@ import {
 	showGizmoAtom,
 	showMeasurementsAtom,
 	showUnitExplanationAtom,
-} from "@/lib/atoms";
+} from "@/store/atoms";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Bloom, EffectComposer } from "@react-three/postprocessing";

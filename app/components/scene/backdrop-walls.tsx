@@ -1,11 +1,12 @@
 import React from "react";
+import { DoubleSide, Euler } from "three";
 
 export function BackdropWalls() {
 	const wallMaterial = {
 		color: "#2a2a2a",
 		roughness: 0.8,
 		metalness: 0.2,
-		side: "double" as const,
+		side: DoubleSide,
 	};
 
 	return (
@@ -29,7 +30,7 @@ export function BackdropWalls() {
 			{/* Right Wall */}
 			<mesh
 				position={[10, 2.5, 0]}
-				rotation={[0, -Math.PI / 2, 0]}
+				rotation={new Euler(0, -Math.PI / 2, 0)}
 				receiveShadow
 			>
 				<planeGeometry args={[20, 10]} />

@@ -5,7 +5,7 @@ import type React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { isAdminModeEnabledAtom, showAdminUnlockCardAtom } from "@/lib/atoms";
+import { isAdminModeEnabledAtom, showAdminUnlockCardAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { AlertCircle, Lock, Unlock } from "lucide-react";
 import { useState } from "react";

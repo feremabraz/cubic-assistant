@@ -1,6 +1,6 @@
 "use client";
 
-import { isAdminModeEnabledAtom, showAdminUnlockCardAtom } from "@/lib/atoms";
+import { isAdminModeEnabledAtom, showAdminUnlockCardAtom } from "@/store/atoms";
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 

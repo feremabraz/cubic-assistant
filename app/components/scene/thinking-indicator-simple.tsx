@@ -1,6 +1,6 @@
 "use client";
 
-import { isAIThinkingAtom } from "@/lib/atoms";
+import { isAIThinkingAtom } from "@/store/atoms";
 import { useFrame } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
 import { useEffect, useRef } from "react";
@@ -9,7 +9,7 @@ import type { Mesh } from "three";
 
 export function ThinkingIndicator() {
 	const isAIThinking = useAtomValue(isAIThinkingAtom);
-	const cubeRef = useRef<Mesh>(null!);
+	const cubeRef = useRef<Mesh | null>(null);
 
 	// Log when thinking state changes
 	useEffect(() => {

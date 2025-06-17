@@ -10,7 +10,7 @@ import {
 	showMeasurementsAtom,
 	showResponseDebugAtom,
 	showUnitExplanationAtom,
-} from "@/lib/atoms";
+} from "@/store/atoms";
 import { useAtom } from "jotai";
 import { Axis3d, Grid2x2, Info, Ruler } from "lucide-react";
 
