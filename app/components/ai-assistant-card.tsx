@@ -198,7 +198,6 @@ export function AIAssistantCard() {
 		// Start the thinking state
 		setIsLoading(true);
 		setIsAIThinking(true);
-		console.log("Setting thinking state to TRUE");
 		setError(null);
 		setResponse(null); // Clear previous response
 
@@ -206,9 +205,7 @@ export function AIAssistantCard() {
 			// Generate a response based on the query
 			const aiResponse = selectResponse(query);
 
-			// End thinking state and show response
-			console.log("Setting thinking state to FALSE");
-			setIsAIThinking(false);
+			// Show response
 			setResponse(aiResponse);
 
 			// Generate speech for the response
@@ -235,6 +232,8 @@ export function AIAssistantCard() {
 				// Add a small delay to ensure the audio is loaded
 				setTimeout(() => {
 					if (audioRef.current) {
+						// End thinking state
+						setIsAIThinking(false);
 						const playPromise = audioRef.current.play();
 
 						if (playPromise !== undefined) {
