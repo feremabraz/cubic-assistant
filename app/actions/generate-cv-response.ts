@@ -1,7 +1,6 @@
 "use server";
 
-import { promises as fs } from "node:fs";
-import path from "node:path";
+import cvContentString from "@/data/CV_Fernando_Braz.txt";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText, streamText } from "ai";
 
@@ -9,31 +8,8 @@ const openai = createOpenAI({
 	apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function getCVContent(): Promise<string> {
-	let cvPath = "";
-	try {
-		if (process.env.VERCEL_ENV) {
-			// Running on Vercel
-			cvPath = path.join(process.cwd(), "CV_Fernando_Braz.txt");
-		} else {
-			// Running locally
-			cvPath = path.join(process.cwd(), "public", "CV_Fernando_Braz.txt");
-		}
-		const cvContent = await fs.readFile(cvPath, "utf-8");
-		return cvContent;
-	} catch (error) {
-		console.error(
-			"Error reading CV file:",
-			error,
-			"Attempted CV Path:",
-			cvPath,
-		);
-		return "Error: Could not load CV information. Please check if the file exists and the server has read permissions.";
-	}
-}
-
 export async function generateCvResponse(query: string): Promise<string> {
-	const cvContent = await getCVContent();
+	const cvContent = cvContentString;
 
 	if (cvContent.startsWith("Error:")) {
 		return cvContent;

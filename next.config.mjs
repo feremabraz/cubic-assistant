@@ -11,9 +11,16 @@ const nextConfig = {
 		unoptimized: true,
 	},
 	experimental: {
-		outputFileTracingIncludes: {
-			"/app/**": ["./public/CV_Fernando_Braz.txt"],
-		},
+		// outputFileTracingIncludes: {
+		// 	"/app/**": ["./data/CV_Fernando_Braz.txt"], // Handled by webpack now
+		// },
+	},
+	webpack: (config, { isServer, webpack }) => {
+		config.module.rules.push({
+			test: /\.txt$/,
+			type: "asset/source",
+		});
+		return config;
 	},
 };
 
